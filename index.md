@@ -154,30 +154,30 @@ Podría ocurrir que una función no necesite devolver ningún valor (en algunos 
 
 Ejemplo de función void: 
 
-`        `// Función void. No devuelve ningún valor ![](Aspose.Words.57dbc812-eacb-4726-8089-f6f7650b28da.023.png)        void versionPrograma(int num) 
+```csharp
+// Función void. No devuelve ningún valor
+void versionPrograma(int num)
+{
+   string texto;
 
-`        `{ 
+   texto = "Esta es la versión "+ num + " de nuestro programa.";
+   MessageBox.Show(texto);
+}
+        
+private void btnVersion_Click(object sender, EventArgs e)
+{
+   versionPrograma(5);
+}
+```
 
-`            `string texto; 
-
-`            `texto = "Esta es la versión "+ num + " de nuestro programa."; ![](Aspose.Words.57dbc812-eacb-4726-8089-f6f7650b28da.024.png)            MessageBox.Show(texto); 
-
-`        `} 
-
-private void btnVersion\_Click(object sender, EventArgs e)         { 
-
-`            `versionPrograma(5); 
-
-`        `} 
-
-1. **Paso<a name="_page5_x82.00_y111.80"></a> de parámetros** 
+# <a name="_apartado3"></a>3. Paso de parámetros
 
 Como  hemos  dicho  los  parámetros  son  la  forma  de  comunicación  entre  el programa principal y los subprogramas. Es la forma de **pasar datos** a las funciones o subprogramas. Estos parámetros pueden ser de entrada, de salida o de entrada salida.  
 
 Un aspecto importante en la programación modular es cómo se pasan o reciben las funciones y procedimientos. A este proceso se le conoce como paso de parámetros. Hay dos formas de paso de parámetros: 
 
 1. **Parámetros por valor:** Pueden ser variables o constantes que no cambian su valor en el cuerpo del subprograma. Son sólo **datos de entrada**. 
-1. **Parámetros  por  referencia:**  Son  variables  que  en  el  cuerpo  del subprograma pueden cambiar su valor. Son **datos de entrada y salida**.  
+2. **Parámetros  por  referencia:**  Son  variables  que  en  el  cuerpo  del subprograma pueden cambiar su valor. Son **datos de entrada y salida**.  
 
 Es decir, cuando se pasa un parámetro por referencia se le indica al subprograma la posición en memoria donde está ubicada la variable que le pasas como parámetro; de esta  forma  los  cambios  de  valor  que  se  efectúen  en  dicha  variable  son  definitivos incluso cuando dicha subrutina termine. 
 
@@ -187,141 +187,145 @@ Es decir, cuando se pasa un parámetro por referencia se le indica al subprogram
 
 A pesar de esta sutil diferencia, los términos *argumento* y *parámetro* a menudo se utilizan indistintamente.  
 
-- La lista de argumentos debe tener tantos argumentos como parámetros requiera la función.  
-- El **orden de los argumentos influye**, es decir, al primer argumento se le asigna  el  primer  parámetro,  al  segundo  argumento  se  le  asigna  el segundo parámetro y así sucesivamente.  
-- El tipo de argumento debe coincidir con el tipo de parámetro al que esté asociado. 
+- La lista de argumentos debe tener tantos argumentos como parámetros espere la función.  
+  
+- El **orden de los argumentos influye**, es decir, al primer argumento se le asigna  el  primer  parámetro,  al  segundo  argumento  se  le  asigna  el segundo parámetro y así sucesivamente. Aunque, como veremos en el siguiente podemos pasar argumentos con nombre, indicando el nombre del parámetro como veremos en un apartado posterior.
+- El tipo del argumento debe coincidir con el tipo de parámetro al que esté asociado. 
 
-**Parámetros por valor.** 
+## Parámetros por valor. Parámetros de entrada.
 
 El paso de parámetros por valor **es la forma por defecto** en la que se pasan los parámetros a las funciones de C#. 
 
-En  los  ejemplos  que  hemos  visto  en  los  apartados  anteriores  se  pasaban  los parámetros por valor, es decir, si cambiara el valor del parámetro dentro de la función, ese cambio no se transmite al argumento de la llamada. Son parámetros de entrada, es decir, nos permiten pasar datos al subprograma. 
+En  los  ejemplos  que  hemos  visto  en  los  apartados  anteriores  se  pasaban  los parámetros por valor, es decir, si cambiara el valor del parámetro dentro de la función, ese cambio no se transmite al argumento de la llamada. Son **parámetros de entrada**, es decir, nos permiten pasar datos al subprograma. 
 
 Ejemplo de parámetro por valor: 
 
-`        `void dobleValor(int num) ![](Aspose.Words.57dbc812-eacb-4726-8089-f6f7650b28da.025.png)        { 
+```csharp
+void dobleValor(int num)
+{
+   num = num * 2;
+}
 
-`            `num = num \* 2; 
+private void btnValor_Click(object sender, EventArgs e)
+{
+   int num;
 
-`        `} 
+   num = 10;
+   dobleValor(num);
 
-`        `private void btnValor\_Click(object sender, EventArgs e) ![](Aspose.Words.57dbc812-eacb-4726-8089-f6f7650b28da.026.png)        { 
+   // El valor de la variable num sigue siendo 10
+   MessageBox.Show("El valor de la variable num es " + num);
+}
+```
+Como vemos en este ejemplo `num` en el botón no ha cambiado su valor a pesar de que en el subprograma sí se cambia. 
 
-`            `int num; 
-
-num = 10; dobleValor(num); 
-
-`            `// El valor de la variable num sigue siendo 10 
-
-`            `MessageBox.Show("El valor de la variable num es " + num); ![](Aspose.Words.57dbc812-eacb-4726-8089-f6f7650b28da.027.png)        } 
-
-Como vemos en este ejemplo **num** en el botón no ha cambiado su valor a pesar de que en el subprograma sí se cambia. 
-
-**Parámetros por Referencia** 
+## Parámetros por Referencia. Salida o Entrada/Salida
 
 Para definir un parámetro por referencia se pueden utilizar la palabra reservada 
 
-**ref** o **out**.  
+`ref` o `out`.  
 
-Esto  nos  permitirá  tener  parámetros  de  entrada/salida  (ref)  y  parámetros  de salida (out). 
+Esto  nos  permitirá  tener  parámetros  de  entrada/salida  (`ref`)  y  parámetros  de salida (`out`). 
 
 Como hemos dicho antes, cuando definimos un parámetro por referencia, si éste cambia de valor el cambio se transmite al argumento y, por tanto, al botón o función desde donde ha sido llamada la función. 
 
-La diferencia entre **ref** y **out** es que cuando utilizamos **ref** el argumento debe haber  sido  inicializado  antes  de  llamar  a  la  función  (o  tendremos  un  error  de compilación) mientras que con **out** no es necesario. 
+La diferencia entre `ref` y `out` es que cuando utilizamos `ref` el argumento debe haber  sido  inicializado  antes  de  llamar  a  la  función  (o  tendremos  un  error  de compilación) mientras que con `out` no es necesario. 
 
-Los parámetros **ref se podrían ver como parámetros de entrada/salida** y los **out como parámetros de salida**. 
+Los parámetros **`ref` se podrían ver como parámetros de entrada/salida** y los **`out` como parámetros de salida**. 
 
-Ejemplo de parámetro por referencia: 
+### Ejemplo de parámetro por referencia: 
 
-`        `void dobleReferencia(ref int num) ![](Aspose.Words.57dbc812-eacb-4726-8089-f6f7650b28da.028.png)        { 
+```csharp
 
-`            `num = num \* 2; 
+void dobleReferencia(ref int num)
+{
+   num = num * 2;
+}
 
-`        `} 
+private void btnReferencia_Click(object sender, EventArgs e)
+{
+   int num;
 
-` `private void btnReferencia\_Click(object sender, EventArgs e)         { 
+   num = 10;
+   dobleReferencia(ref num);
 
-`            `int num; 
+   // El valor de la variable num pasa a ser 20
+   MessageBox.Show("El valor de la variable num es " + num);
+}
+```
 
-num = 10; dobleReferencia(ref num); 
+Notar que al **llamar** a una función con un parámetro por referencia hay que poner `ref` delante del argumento en la llamada. 
 
-`            `// El valor de la variable num pasa a ser 20 
+Vamos a realizar un ejemplo en el que **calculemos la nota media a partir de las notas de las 3 evaluaciones**. Lo vamos a hacer con una función que devuelva la media mediante return y con una función void que devuelva la media en un parámetro de salida. 
 
-`            `MessageBox.Show("El valor de la variable num es " + num); ![](Aspose.Words.57dbc812-eacb-4726-8089-f6f7650b28da.029.png)        } 
+### Ejemplo con función: 
 
-Notar que al llamar a una función con un parámetro por referencia hay que poner **ref** delante del argumento en la llamada. 
+```csharp
+double mediaFuncion(double nota1, double nota2, double nota3)
+{
+   double res;
 
-Ejemplo: 
+   res = (nota1 + nota2 + nota3) / 3;
 
-Vamos a realizar un ejemplo en el que calculemos la nota media a partir de las notas de las 3 evaluaciones. Lo vamos a hacer con una función que devuelva la media mediante return y con una función void que devuelva la media en un parámetro de salida. 
+   return res;
+}
+       
+private void btnMediaFuncion_Click(object sender, EventArgs e)
+{
+   double n1, n2, n3, media;
 
-Ejemplo con función: 
+   n1 = double.Parse(txtNota1.Text);
+   n2 = double.Parse(txtNota2.Text);
+   n3 = double.Parse(txtNota3.Text);
 
-`        `double mediaFuncion(double nota1, double nota2, double nota3) ![](Aspose.Words.57dbc812-eacb-4726-8089-f6f7650b28da.030.png)        { 
+   media = mediaFuncion(n1, n2, n3);
 
-`            `double res; 
+   MessageBox.Show("La media es " + media);
+}
+```
 
-res = (nota1 + nota2 + nota3) / 3; 
+### Ejemplo con parámetro out: 
 
-`            `return res;         } 
+```csharp
+void mediaReferencia(double nota1, double nota2, double nota3, out double res)
+{
+   res = (nota1 + nota2 + nota3) / 3;
+}
 
-` `private void btnMediaFuncion\_Click(object sender, EventArgs e) ![](Aspose.Words.57dbc812-eacb-4726-8089-f6f7650b28da.031.png)        { 
+private void btnReferencia_Click(object sender, EventArgs e)
+{
+   double n1, n2, n3, media;
 
-`            `double n1, n2, n3, media; 
+   n1 = double.Parse(txtNota1.Text);
+   n2 = double.Parse(txtNota2.Text);
+   n3 = double.Parse(txtNota3.Text);
 
-n1 = double.Parse(txtNota1.Text); n2 = double.Parse(txtNota2.Text); n3 = double.Parse(txtNota3.Text); 
+   mediaReferencia(n1, n2, n3, out media);
 
-media = mediaFuncion(n1, n2, n3); 
+   MessageBox.Show("La media es " + media);
+}
 
-`            `MessageBox.Show("La media es " + media); ![](Aspose.Words.57dbc812-eacb-4726-8089-f6f7650b28da.032.png)
+```
 
-` `} 
-
-Ejemplo con parámetro por referencia: 
-
-`        `void mediaReferencia(double nota1, double nota2, double nota3,                               out double res) ![](Aspose.Words.57dbc812-eacb-4726-8089-f6f7650b28da.033.png)
-
-`        `{ 
-
-`            `res = (nota1 + nota2 + nota3) / 3; 
-
-`        `} 
-
-`        `private void btnReferencia\_Click(object sender, EventArgs e) ![](Aspose.Words.57dbc812-eacb-4726-8089-f6f7650b28da.034.png)        { 
-
-`            `double n1, n2, n3, media; 
-
-n1 = double.Parse(txtNota1.Text); n2 = double.Parse(txtNota2.Text); n3 = double.Parse(txtNota3.Text); 
-
-mediaReferencia(n1, n2, n3, out media); 
-
-`            `MessageBox.Show("La media es " + media); ![](Aspose.Words.57dbc812-eacb-4726-8089-f6f7650b28da.035.png)        }
-
-- **¿Cuándo devolver valores por return o por parámetros por referencia?** 
+## ¿Cuándo devolver valores por return o por parámetros por referencia?
 
 En muchas ocasiones puede resultar confuso, a la hora de utilizar un subprograma, decidir si devolver valores mediante return o mediante parámetros por referencia. 
 
 Una posible regla a aplicar puede ser la siguiente: 
 
-- Si el subprograma va a devolver **un solo valor**, utilizar **return**. 
-- Si el subprograma **no va a devolver valor** o va a devolver **más de un valor,** entonces  utilizar  función  void  (no  devuelve  nada)  y  devolver  los  valores mediante varios parámetros por referencia. 
+- Si el subprograma va a devolver **un solo valor**, utilizar `return`. 
+  
+- Si el subprograma **no va a devolver valor** o va a devolver **más de un valor,** entonces  utilizar  función  `void`  (no  devuelve  nada)  y  devolver  los  valores mediante varios parámetros por referencia. 
 
 A continuación, os planteo varios posibles ejemplos. 
 
 1. Imaginemos que queremos realizar un subprograma que devuelva la potencia de un número elevado a otro. 
 
-   En este caso lo mejor es utilizar una función con dos parámetros por valor (la base y el exponente) y que devuelva el resultado de la potencia. 
+   En este caso lo mejor es utilizar una función con dos parámetros por valor (la base y el exponente) y que devuelva mediante `return` el resultado de la potencia. 
 
-2. Si  queremos  hacer  un  subprograma  que  simplemente  imprima  algo  por pantalla se puede utilizar una función void. 
-2. Imaginemos que queremos hacer un subprograma que devuelva el valor de la división entera y del resto entre dos números. 
+2. Si  queremos  hacer  un  subprograma  que  simplemente  imprima  algo  por pantalla se puede utilizar una función `void`. 
+3. Imaginemos que queremos hacer un subprograma que devuelva el valor de la división entera y del resto entre dos números. 
 
-   En este caso lo mejor sería hacer una función void con 4 parámetros, dos de entrada: el primer número y el segundo número, y otros dos parámetros de salida (out): el resultado de la división y el resto. 
+   En este caso lo mejor sería hacer una función void con 4 parámetros, dos de entrada: el primer número y el segundo número, y otros dos parámetros de salida (`out`): el resultado de la división y el resto. 
 
-4. Si  quisiéramos  hacer  un  subprograma  que  intercambie  el  valor  de  dos números,  lo  mejor  sería  hacer  una  función  void  con  dos  parámetros  de entrada/salida (ref). 
-*Página 10 ![ref5]*
-
-[ref1]: Aspose.Words.57dbc812-eacb-4726-8089-f6f7650b28da.001.png
-[ref2]: Aspose.Words.57dbc812-eacb-4726-8089-f6f7650b28da.002.png
-[ref3]: Aspose.Words.57dbc812-eacb-4726-8089-f6f7650b28da.003.png
-[ref4]: Aspose.Words.57dbc812-eacb-4726-8089-f6f7650b28da.004.png
-[ref5]: Aspose.Words.57dbc812-eacb-4726-8089-f6f7650b28da.009.png
+4. Si  quisiéramos  hacer  un  subprograma  que  intercambie  el  valor  de  dos números,  lo  mejor  sería  hacer  una  función  void  con  dos  parámetros  de entrada/salida (`ref`). 
