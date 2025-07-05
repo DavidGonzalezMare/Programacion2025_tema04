@@ -198,7 +198,7 @@ El paso de parámetros por valor **es la forma por defecto** en la que se pasan 
 
 En  los  ejemplos  que  hemos  visto  en  los  apartados  anteriores  se  pasaban  los parámetros por valor, es decir, si cambiara el valor del parámetro dentro de la función, ese cambio no se transmite al argumento de la llamada. Son **parámetros de entrada**, es decir, nos permiten pasar datos al subprograma. 
 
-Ejemplo de parámetro por valor: 
+### Ejemplo de parámetro por valor: 
 
 ```csharp
 void dobleValor(int num)
@@ -329,3 +329,118 @@ A continuación, os planteo varios posibles ejemplos.
    En este caso lo mejor sería hacer una función void con 4 parámetros, dos de entrada: el primer número y el segundo número, y otros dos parámetros de salida (`out`): el resultado de la división y el resto. 
 
 4. Si  quisiéramos  hacer  un  subprograma  que  intercambie  el  valor  de  dos números,  lo  mejor  sería  hacer  una  función  void  con  dos  parámetros  de entrada/salida (`ref`). 
+
+# <a name="_apartado4"></a>4. Ejemplo de creación de función
+
+En este apartado vamos a resolver uno de los ejercicios que luego se plantean, paso a paso.
+
+En el tema anterior, uno de los ejercicios resolvimos un problema en el que obteníamos la potencia de un número elevado a otro. Vamos ahora a realizar la función que nos permita calcular esa potencia, y vamos, mientras lo hacemos, a discutir distintos detalles.
+
+Una posible solución a este problema sin tener en cuenta la programación modular podría ser:
+
+```csharp
+private void btnCalcular_Click(object sender, EventArgs e)
+{
+   int vBase, vExponente, vPotencia;
+
+   vBase = int.Parse(txtBase.Text);
+   vExponente = int.Parse(txtExponente.Text);
+
+   vPotencia = 1;
+
+   for(int i = 1; i <= vExponente; i++)
+   {
+         vPotencia *= vBase;
+   }
+
+   MessageBox.Show($"El resultado de la potencia es: {vPotencia}");
+}
+```
+
+Vamos a pensar una posible solución **utilizando programación modular**, realizando una función sin parámetros, y que no devuelve valor. 
+
+```csharp
+void potencia()
+{
+   int vBase, vExponente, vPotencia;
+
+   vBase = int.Parse(txtBase.Text);
+   vExponente = int.Parse(txtExponente.Text);
+
+   vPotencia = 1;
+
+   for (int i = 1; i <= vExponente; i++)
+   {
+         vPotencia *= vBase;
+   }
+
+   MessageBox.Show($"El resultado de la potencia es: {vPotencia}");
+}
+
+private void btnCalcular_Click(object sender, EventArgs e)
+{
+   potencia();            
+}
+```
+
+Aunque esta solución funciona, **no es correcta**.
+
+Nuestra función está leyendo los valores de la base y del exponente, calcula la potencia y muestra el resultado de la misma.
+
+El problema es que haciéndolo de esta manera, la **función no es genérica**. 
+- ¿Qué pasa si los datos no los queremos leer desde textBox, sino desde InputBox?
+ 
+- ¿Y si el resultado no lo queremos imprimir en un MessageBox sino en un label, o en un textBox?
+- O si directamente queremos calcular la potencia de 5 elevado a 3.
+
+Pues tal y como tenemos planteada nuestra función, no lo podríamos hacer. Debemos tener en cuenta que nuestra función debe ser lo más genérica posible, para que se pueda utilizar de distintas formas.
+
+Cuando definimos una función **debemos evitar leer los datos dentro de la misma y tambien debemos evitar mostrar los resultados**.
+
+Para ello utilizaremos los parámetros y return.
+
+Nuestra función en concreto recibe dos valores y devuelve un resultado. Por tanto, tendremos dos parámetos de entrada y un return.
+
+```csharp
+int potencia(int bbase, int exponente)
+{
+   int res;
+   res = 1;
+
+   for (int i = 1; i <= exponente; i++)
+   {
+         res *= bbase;
+   }
+
+   return res;
+}
+
+private void btnCalcular_Click(object sender, EventArgs e)
+{
+   int vBase, vExponente, vPotencia;
+
+   vBase = int.Parse(txtBase.Text);
+   vExponente = int.Parse(txtExponente.Text);
+
+   vPotencia = potencia(vBase, vExponente);
+
+   MessageBox.Show($"El resultado de la potencia es: {vPotencia}");
+}
+```
+
+De esta manera, nuestra función recibe los valores de la base y el exponente, y devuelve el resultado.
+
+Si por ejemplo, quisiéramos obtener 5 elevado a 3 y mostrarlo en un label, lo podríamos hacer así:
+
+```csharp
+private void btnCalcular_Click(object sender, EventArgs e)
+{
+   int res;
+
+   res = potencia(5, 3);
+
+   lblResultado.Text = res.ToString();
+}
+```
+
+Utilizando la misma función que habíamos definido ya correctamente.
