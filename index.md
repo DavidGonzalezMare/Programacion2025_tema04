@@ -10,6 +10,10 @@
 
 [*3.	Paso de parámetros*](#_apartado3)
 
+[*4.	Ejemplo de función*](#_apartado4)
+
+[*5.	Parámetros por nombre*](#_apartado5)
+
 
 # <a name="_apartado1"></a>1. Introducción.
 
@@ -444,3 +448,104 @@ private void btnCalcular_Click(object sender, EventArgs e)
 ```
 
 Utilizando la misma función que habíamos definido ya correctamente.
+
+# <a name="_apartado5"></a>5. Argumentos por nombre y opcionales
+
+Como hemos estudiado en apartados anteriores, a la hora de llamar a una función el orden de los argumentos es fundamental a la hora de asignarlos a los parámetros de la función.
+
+Así cuando hacemos:
+
+```csharp
+   res = potencia(5, 3);
+```
+`res` tomará el valor 125 (5 elevado a 3), mientras que si la llamada fuera:
+
+```csharp
+   res = potencia(3, 5);
+```
+
+`res` tomará el valor 243 (3 elevado a 5).
+
+Existe en csharp, al igual que en muchos lenguajes modernos, la posibilidad de llamar a una función **indicando el nombre del parámetro**, en cuyo caso no hace seguir el orden establecido en la llamada. 
+Además, esto puede hacer más clara la comprensión de la llamada:
+
+```csharp
+   res = potencia(bbase: 5, exponente: 3);
+```
+
+Igualmente podemos hacer:
+
+``` csharp
+   res = potencia(exponente: 3, bbase: 5);
+```
+
+Vamos a ver el ejemplo en el que pedíamos el valor de los argumentos que vimos en el apartado anterior:
+
+```csharp
+private void btnCalcular_Click(object sender, EventArgs e)
+{
+   int vBase, vExponente, vPotencia;
+
+   vBase = int.Parse(txtBase.Text);
+   vExponente = int.Parse(txtExponente.Text);
+
+   vPotencia = potencia(bbase: vBase, exponente: vExponente);
+
+   MessageBox.Show($"El resultado de la potencia es: {vPotencia}");
+}
+```
+
+**ESTO QUE VOY A HACER AQUÍ AHORA ESTARÍA BIEN HACERLO EN CONSOLA. EL PROBLEMA ES SI UTILIZAMOS EL NUEVO ESTILO DE CONSOLA O EL ANTIGUO...**
+
+Existe la posibilidad de **tener parámetros opcionales** en una función. Para hacer un parámetro opcional (que deben ir detrás de los parámetros obligatorios), debemos darle un valor en la definición de la función.
+En el caso que en la llamada no pongamos algún argumento opcional, tomará el valor que hayamos puesto en la definición.
+
+Vamos a realizar una función a la cual le pasemos el nombre de una persona, su edad y la ciudad de nacimiento. Esta función devolverá un texto con los datos de esa persona.
+Los parámetros edad y ciudad de nacimiento serán opcionales:
+
+```csharp
+// Tenemos parámetro obligatorio (nombre) y dos parámetros opcionales
+string datosPersonales(string nombre, int edad = 50, 
+                       string ciudadNacimiento = "Alicante")
+{
+   string estatus = "Bebé";
+   string texto;
+
+   if (edad >= 1 && edad < 12)
+         estatus = "Niño/a";
+   else
+   if (edad >= 12 && edad < 18)
+         estatus = "Adolescente";
+   else
+   if (edad >= 18 && edad < 65)
+         estatus = "Adulto/a";
+   else
+   if (edad >= 65)
+         estatus = "Jubilado/a";
+
+   texto = $"Nombre: {nombre}, Edad: {edad} ({estatus}), Ciudad: {ciudadNacimiento} ";
+
+   return texto;
+}
+
+private void btnDatos_Click(object sender, EventArgs e)
+{
+   // Aquí tenemos varios ejemplos 
+   // de llamada a la función.
+   MessageBox.Show(datosPersonales("David", 52, "Granada"));
+   MessageBox.Show(datosPersonales("Juan"));
+   MessageBox.Show(datosPersonales("Ana", 18));
+   MessageBox.Show(datosPersonales("María", 15, "Elche"));
+
+   // Además podemos utilizar parámetros por nombre
+   MessageBox.Show(datosPersonales(nombre: "Miguel", edad: 79, ciudadNacimiento: "Barcelona"));
+   MessageBox.Show(datosPersonales(nombre: "Pablo", ciudadNacimiento: "Alicante"));
+   // En cuyo caso podemos cambiar la posición
+   MessageBox.Show(datosPersonales(ciudadNacimiento: "Valencia", nombre: "Paula", edad: 55));
+
+   // E incluso podemos mezclar parámetros por posición y por nombre, siempre 
+   // y cuando los posicionales los escribamos primero
+   MessageBox.Show(datosPersonales("Luisa", ciudadNacimiento: "Elche"));
+}
+
+```
