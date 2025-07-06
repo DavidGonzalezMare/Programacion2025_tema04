@@ -14,6 +14,8 @@
 
 [*5.	Parámetros por nombre*](#_apartado5)
 
+[*6.	Funciones delegadas y funciones lambda*](#_apartado6)
+
 
 # <a name="_apartado1"></a>1. Introducción.
 
@@ -546,6 +548,144 @@ private void btnDatos_Click(object sender, EventArgs e)
    // E incluso podemos mezclar parámetros por posición y por nombre, siempre 
    // y cuando los posicionales los escribamos primero
    MessageBox.Show(datosPersonales("Luisa", ciudadNacimiento: "Elche"));
+
+   // Y por supuesto estos argumentos podrían ser variables leídas
+   string nombre = Interaction.InputBox("Introduzca el nombre");
+   int edad = int.Parse(Interaction.InputBox("Introduzca la edad"));
+
+   MessageBox.Show(datosPersonales(nombre: nombre, edad: edad));
 }
 
 ```
+
+# <a name="_apartado6"></a>6.	Funciones delegadas y funciones lambda
+
+En c# existe la posibilidad de hacer que una función tenga como parámetro otra función, de manera que luego se pueda utilizar esa función pasada dentro.
+Esto se puede hacer mediante delegados
+
+## Delegados
+
+Un delegado es un tipo que representa una referencia a un **método**. Los delegados permiten que los métodos se pasen como parámetros, se asignen a variables y se ejecuten dinámicamente en tiempo de ejecución.
+
+Definición de un Delegado
+Para declarar un delegado, usa la palabra clave **delegate**, seguida de la firma del método que el delegado representará. Por ejemplo si el delegado queremos que represente una función que tiene como parámetros dos enteros y devuelve un entero tendrá esta forma:
+
+```csharp
+public delegate int Operacion(int a, int b);
+```
+
+Luego podremos poner en una función `Operación` como parámetro.
+
+Vamos a intentar enteder este concepto con un ejemplo en el que trabajamos con funciones que calculan operaciones básicas (suma, resta...):
+
+Podríamos definir en primer lugar estas operacionen como funciones:
+
+```csharp
+int suma(int x, int y)
+{
+   return x + y;
+}
+
+int resta(int x, int y)
+{
+   return x - y;
+}
+
+int producto(int x, int y)
+{
+   return x * y;
+}
+```
+
+Y luego utilizarlas llamándolas cuando nos interese:
+
+```csharp
+private void btnCalcular_Click(object sender, EventArgs e)
+{
+   int res;
+
+   res = suma(5, 3);
+   MessageBox.Show($"El resultado es {res}");
+
+   res = resta(5, 3);
+   MessageBox.Show($"El resultado es {res}");
+
+   res = producto(5, 3);
+   MessageBox.Show($"El resultado es {res}");
+}
+```
+
+Lo que vamos a hacer a continuación, para entender el concepto de **delegado** y **función como parámetro** es crearlos:
+
+```csharp
+// Creamos el delegado dando nombre y firma del método
+delegate int Operacion(int a, int b);
+```
+
+Vamos a crear ahora una función que espera como parámetro los dos valores y la función delegada que luego le pasaremos por parámetro:
+
+```csharp
+// Esta es una función que espera dos valores y 
+// la operación a realizar con esos dos valores.
+// Devuelve un texto, pero podría devolver un valor también
+string ejecutarOperacion(int a, int b, Operacion operacion)
+{
+   int res;
+
+   res = operacion(a, b);
+
+   return $"El resultado es {res}";
+}
+```
+
+Y ahora podemos llamar a `ejecutarOperacion` pasándole los valores y la función:
+
+```csharp
+private void btnCalcular_Click(object sender, EventArgs e)
+{
+   MessageBox.Show(ejecutarOperacion(5, 3, suma));
+
+   MessageBox.Show(ejecutarOperacion(5, 3, resta));
+
+   // Aquí la llamamos con la función potencia
+   MessageBox.Show(ejecutarOperacion(5, 3, potencia));
+
+   // Podemos utilizar variables
+   int n1 = int.Parse(Interaction.InputBox("Introduzca un valor"));
+   int n2 = int.Parse(Interaction.InputBox("Introduzca otro valor"));
+
+   string texto = ejecutarOperacion(n1, n2, potencia);   
+}
+```
+
+## Funciones lambda
+
+Las **funciones lambda** en C# son una forma concisa y expresiva de definir funciones anónimas. Son especialmente útiles para operaciones simples que se utilizan una sola vez.
+
+La sintaxis general de una función lambda es:
+
+```csharp
+(parámetros) => expresión
+```
+
+Donde se ponen los *parámetros de entrada* de la función lambda, separados por comas si hay más de uno y la *expresión* que se evalúa y devuelve como resultado de la función lambda.
+
+Si nos damos cuenta, algunas de las funciones que utilizamos en el parámetro delegado son simplemente un linea. Se pueden sustituir por expresiones lambda, que ejecutarán el cuerpo de la misma:
+
+```csharp
+private void btnCalcularLambda(object sender, EventArgs e)
+{
+   MessageBox.Show(ejecutarOperacion(5, 3, (x, y) => x + y));
+
+   MessageBox.Show(ejecutarOperacion(5, 3, (x, y) => x * y));
+
+   // Podemos utilizar variables
+   int n1 = int.Parse(Interaction.InputBox("Introduzca el dividendo"));
+   int n2 = int.Parse(Interaction.InputBox("Introduzca el divisor"));
+
+   string texto = ejecutarOperacion(n1, n2, (x, y) => x / y);
+   MessageBox.Show(texto);
+}
+```
+
+
