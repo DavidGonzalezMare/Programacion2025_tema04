@@ -66,7 +66,7 @@ Como  hemos  dicho  un  subprograma  o  función  consiste  en  una  serie  de s
   La forma general para crear una función es: 
 
 ```csharp
-tipo nombreFuncion(parámetros)
+tipo nombreFuncion(parametros)
 {
    sentencias;
 
@@ -109,7 +109,7 @@ Sentencia de asignación.
 
 `return res;` 
 
-Hace que nuestra función devuelva el valor contenido en la variable res. 
+Hace que nuestra función devuelva el valor contenido en la variable `res`. 
 
 Si luego quisiéramos llamar a la función cuadrado lo podríamos hacer de la siguiente forma: 
 
@@ -156,9 +156,9 @@ private void btnSumar_Click(object sender, EventArgs e)
 ```
 
 
-Podría ocurrir que una función no necesite devolver ningún valor (en algunos lenguajes esto se denomina **procedimiento**). En ese caso el tipo que devuelve la función es void, lo cual indica que no devuelve nada y no es necesario utilizar return. 
+Podría ocurrir que una función no necesite devolver ningún valor (en algunos lenguajes esto se denomina **procedimiento**). En ese caso el tipo que devuelve la función es `void`, lo cual indica que no devuelve nada y no es necesario utilizar `return`. 
 
-Ejemplo de función void: 
+### Ejemplo de función void: 
 
 ```csharp
 // Función void. No devuelve ningún valor
@@ -178,7 +178,7 @@ private void btnVersion_Click(object sender, EventArgs e)
 
 # <a name="_apartado3"></a>3. Paso de parámetros
 
-Como  hemos  dicho  los  parámetros  son  la  forma  de  comunicación  entre  el programa principal y los subprogramas. Es la forma de **pasar datos** a las funciones o subprogramas. Estos parámetros pueden ser de entrada, de salida o de entrada salida.  
+Como  hemos  dicho  los  parámetros  son  la  forma  de  comunicación  entre  el programa principal y los subprogramas. Es la forma de **pasar datos** a las funciones o subprogramas. Estos parámetros pueden ser de *entrada*, de *salida* o de *entrada/salida*.  
 
 Un aspecto importante en la programación modular es cómo se pasan o reciben las funciones y procedimientos. A este proceso se le conoce como paso de parámetros. Hay dos formas de paso de parámetros: 
 
@@ -187,16 +187,16 @@ Un aspecto importante en la programación modular es cómo se pasan o reciben la
 
 Es decir, cuando se pasa un parámetro por referencia se le indica al subprograma la posición en memoria donde está ubicada la variable que le pasas como parámetro; de esta  forma  los  cambios  de  valor  que  se  efectúen  en  dicha  variable  son  definitivos incluso cuando dicha subrutina termine. 
 
-**Cuando definimos una función** en Visual C# .NET, describimos los datos y los tipos de datos para los que la función está diseñada para aceptar desde un subprograma que la llame. Los elementos definidos en la función se denominan ***parámetros***. 
+**Cuando definimos una función** en Visual C# .NET, describimos los datos y los tipos de datos para los que la función está diseñada para aceptar desde un subprograma que la llame. Los elementos definidos en la cabecera de la función se denominan ***parámetros***. 
 
 **Cuando llamamos a la función**, sustituimos un valor actual de cada parámetro. Los valores que pasamos en la posición de los parámetros se denominan ***argumentos***. 
 
 A pesar de esta sutil diferencia, los términos *argumento* y *parámetro* a menudo se utilizan indistintamente.  
 
-- La lista de argumentos debe tener tantos argumentos como parámetros espere la función.  
+- El número de argumentos que pasamos al llamar a la función debe coincidir con el número de parámetros que espera la función.  
   
-- El **orden de los argumentos influye**, es decir, al primer argumento se le asigna  el  primer  parámetro,  al  segundo  argumento  se  le  asigna  el segundo parámetro y así sucesivamente. Aunque, como veremos en el siguiente podemos pasar argumentos con nombre, indicando el nombre del parámetro como veremos en un apartado posterior.
-- El tipo del argumento debe coincidir con el tipo de parámetro al que esté asociado. 
+- El **orden de los argumentos influye**, es decir, al primer argumento se le asigna  el  primer  parámetro,  al  segundo  argumento  se  le  asigna  el segundo parámetro y así sucesivamente. Aunque, como veremos en el siguiente podemos pasar argumentos con nombre, indicando el nombre del parámetro como veremos en un apartado posterior. Esto se puede cambiar, como veremos más adelante, con los parámetros por nombre.
+- El **tipo** del argumento debe coincidir con el tipo de parámetro al que esté asociado. 
 
 ## Parámetros por valor. Parámetros de entrada.
 
@@ -210,6 +210,8 @@ En  los  ejemplos  que  hemos  visto  en  los  apartados  anteriores  se  pasaba
 void dobleValor(int num)
 {
    num = num * 2;
+   // Aquí imprimirá el valor 20
+   MessageBox.Show(num.ToString());
 }
 
 private void btnValor_Click(object sender, EventArgs e)
@@ -246,6 +248,8 @@ Los parámetros **`ref` se podrían ver como parámetros de entrada/salida** y l
 void dobleReferencia(ref int num)
 {
    num = num * 2;
+   // Aquí imprimirá el valor 20
+   MessageBox.Show(num.ToString());
 }
 
 private void btnReferencia_Click(object sender, EventArgs e)
@@ -262,7 +266,7 @@ private void btnReferencia_Click(object sender, EventArgs e)
 
 Notar que al **llamar** a una función con un parámetro por referencia hay que poner `ref` delante del argumento en la llamada. 
 
-Vamos a realizar un ejemplo en el que **calculemos la nota media a partir de las notas de las 3 evaluaciones**. Lo vamos a hacer con una función que devuelva la media mediante return y con una función void que devuelva la media en un parámetro de salida. 
+Vamos a realizar un ejemplo en el que **calculemos la nota media a partir de las notas de las 3 evaluaciones**. Lo vamos a hacer con una función que devuelva la media mediante `return` y con una función `void` que devuelva la media en un parámetro de salida. 
 
 ### Ejemplo con función: 
 
@@ -340,9 +344,12 @@ A continuación, os planteo varios posibles ejemplos.
 
 En este apartado vamos a resolver uno de los ejercicios que luego se plantean, paso a paso.
 
-En el tema anterior, uno de los ejercicios resolvimos un problema en el que obteníamos la potencia de un número elevado a otro. Vamos ahora a realizar la función que nos permita calcular esa potencia, y vamos, mientras lo hacemos, a discutir distintos detalles.
+En el tema anterior, resolvimos un problema en el que obteníamos la potencia de un número elevado a otro. 
+Nos encontramos con la situación en que, si quisiéramos calcular la potencia de un número elevado a otro en varios puntos de nuestro programa, necesitaríamos **copiar ese código** para poder hacerlo, al no haber trabajado todavía con la **programación modular**.
 
-Una posible solución a este problema sin tener en cuenta la programación modular podría ser:
+Vamos ahora a realizar la función que nos permita calcular esa potencia y, mientras lo hacemos, vamos a discutir distintos detalles.
+
+Recordamos una posible solución a este problema **sin tener en cuenta la programación modular**:
 
 ```csharp
 private void btnCalcular_Click(object sender, EventArgs e)
@@ -561,20 +568,19 @@ private void btnDatos_Click(object sender, EventArgs e)
 # <a name="_apartado6"></a>6.	Funciones delegadas y funciones lambda
 
 En c# existe la posibilidad de hacer que una función tenga como parámetro otra función, de manera que luego se pueda utilizar esa función pasada dentro.
-Esto se puede hacer mediante delegados
+Esto se puede hacer mediante **delegados**
 
 ## Delegados
 
 Un delegado es un tipo que representa una referencia a un **método**. Los delegados permiten que los métodos se pasen como parámetros, se asignen a variables y se ejecuten dinámicamente en tiempo de ejecución.
 
-Definición de un Delegado
-Para declarar un delegado, usa la palabra clave **delegate**, seguida de la firma del método que el delegado representará. Por ejemplo si el delegado queremos que represente una función que tiene como parámetros dos enteros y devuelve un entero tendrá esta forma:
+Para declarar un delegado, usamos la palabra clave **delegate**, seguida de la firma del método que el delegado representará. Por ejemplo, si el delegado queremos que represente una función que tiene como parámetros dos enteros y devuelve un entero tendrá esta forma:
 
 ```csharp
 public delegate int Operacion(int a, int b);
 ```
 
-Luego podremos poner en una función `Operación` como parámetro.
+Luego podremos poner en una función `Operacion` como parámetro.
 
 Vamos a intentar enteder este concepto con un ejemplo en el que trabajamos con funciones que calculan operaciones básicas (suma, resta...):
 
@@ -658,6 +664,21 @@ private void btnCalcular_Click(object sender, EventArgs e)
 }
 ```
 
+Otra posibilidad a la hora de haber definido ejecutarOperacion es haber utilizado la palabra reservada `Func` que nos permite definir un delegado genérico directamente en la definición de la función:
+
+```csharp
+string ejecutarOperacionConFunc(int a, int b, Func<int, int, int> funcion)
+{
+   int res;
+
+   res = funcion(a, b);
+
+   return $"El resultado es {res}";
+}
+```
+
+Al indicar `Func<int, int, int> funcion` estamos diciendo que `ejecutarOperacionConFunc` espera al ser llamada una función que devuelve un `int` y tiene dos `int` como parámetros.
+
 ## Funciones lambda
 
 Las **funciones lambda** en C# son una forma concisa y expresiva de definir funciones anónimas. Son especialmente útiles para operaciones simples que se utilizan una sola vez.
@@ -665,12 +686,12 @@ Las **funciones lambda** en C# son una forma concisa y expresiva de definir func
 La sintaxis general de una función lambda es:
 
 ```csharp
-(parámetros) => expresión
+(parametros) => expresion
 ```
 
 Donde se ponen los *parámetros de entrada* de la función lambda, separados por comas si hay más de uno y la *expresión* que se evalúa y devuelve como resultado de la función lambda.
 
-Si nos damos cuenta, algunas de las funciones que utilizamos en el parámetro delegado son simplemente un linea. Se pueden sustituir por expresiones lambda, que ejecutarán el cuerpo de la misma:
+Si nos damos cuenta, algunas de las funciones que utilizamos en el parámetro delegado son simplemente una linea. Se pueden sustituir por expresiones lambda, que ejecutarán el cuerpo de la misma:
 
 ```csharp
 private void btnCalcularLambda(object sender, EventArgs e)
@@ -683,7 +704,7 @@ private void btnCalcularLambda(object sender, EventArgs e)
    int n1 = int.Parse(Interaction.InputBox("Introduzca el dividendo"));
    int n2 = int.Parse(Interaction.InputBox("Introduzca el divisor"));
 
-   string texto = ejecutarOperacion(n1, n2, (x, y) => x / y);
+   string texto = ejecutarOperacionConFunc(n1, n2, (x, y) => x / y);
    MessageBox.Show(texto);
 }
 ```
