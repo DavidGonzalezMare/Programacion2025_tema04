@@ -1,6 +1,5 @@
-﻿![Union europea](./images/imagen01.jpeg)  ![Generalitat](./images/imagen02.jpeg)                                   ![Mare Nostrum](./images/imagen03.png)
+﻿![Union europea](./images/union_europea.jpeg)  ![Generalitat](./images/generalitat.jpeg) ![Mare Nostrum](./images/mare_nostrum.png)
 
-*Programación  Tema 4. Programación Modular ![ref4]*
 
 # Tema 4. Programación Modular 
 
