@@ -1,5 +1,7 @@
 ﻿![Union europea](./images/union_europea.jpeg)  ![Generalitat](./images/generalitat.jpeg) ![Mare Nostrum](./images/mare_nostrum.png)
 
+<br>
+<br>
 
 # Tema 4. Programación Modular 
 
@@ -37,6 +39,9 @@ Mantener  el  código  de  un  programa  que  está  estructurado  en  múltiple
 
 ![Organizar](./images/imagen05.jpg)
 
+<br>
+<br>
+
 # <a name="_apartado2"></a>2. Subprogramas.
 
 Un **subprograma**, también denominado **método** o **función**, es un conjunto de operaciones o sentencias identificado mediante un nombre único. Toda referencia o llamada a este nombre implica la **ejecución de las operaciones contenidas** en dicha función o procedimiento. 
@@ -51,7 +56,8 @@ Características de los subprogramas:
 
 - La llamada a un subprograma en un programa da como resultado la ejecución del cuerpo de la función. Se ejecuta hasta que se alcanza la última sentencia (o se ejecuta la sentencia **return**), momento en el cual se transfiere de nuevo el control al programa principal o subprograma que lo hubiera llamado. 
 
-- La forma de comunicar la información a una función es mediante los argumentos o **parámetros**.  
+- La forma de comunicar la información a una función es mediante los argumentos o **parámetros**. 
+   
 - El subprograma debe definirse antes de poder utilizarse. 
 
 Un  subprograma  **ha  de  definirse  antes  de  su  utilización,**  estableciendo  el identificador por el que se le conocerá, los parámetros que necesita y el bloque de código a ejecutar.  
@@ -154,6 +160,40 @@ private void btnSumar_Click(object sender, EventArgs e)
 }
 ```
 
+### Vamos a ver este mismo ejemplo en un proyecto de Consola y repasamos:
+
+```csharp
+// Función que devuelve la suma de dos números.
+// Las funciones en Consola deben ser static.
+// Esto lo explicaremos al ver Orientado a Objetos
+static int suma(int num1, int num2)
+{
+    // res será una variable local.
+    int res;
+
+    res = num1 + num2;
+
+    // Devolvemos el valor contenido en res
+    return res;
+}
+
+static void Main(string[] args)
+{
+    int n1, n2, result;
+
+    Console.Write("Introduzca el primer número: ");
+    n1 = int.Parse(Console.ReadLine());
+    Console.Write("Introduzca el segundo número: ");
+    n2 = int.Parse(Console.ReadLine());
+
+    // Llamamos a la función pasando los parámetros
+    // y recogiendo el valor que devuelve.
+    result = suma(n1, n2);
+
+    Console.WriteLine($"El resultado de la suma es {result}.");
+}
+```
+
 
 Podría ocurrir que una función no necesite devolver ningún valor (en algunos lenguajes esto se denomina **procedimiento**). En ese caso el tipo que devuelve la función es `void`, lo cual indica que no devuelve nada y no es necesario utilizar `return`. 
 
@@ -174,6 +214,9 @@ private void btnVersion_Click(object sender, EventArgs e)
    versionPrograma(5);
 }
 ```
+
+<br>
+<br>
 
 # <a name="_apartado3"></a>3. Paso de parámetros
 
@@ -196,6 +239,8 @@ A pesar de esta sutil diferencia, los términos *argumento* y *parámetro* a men
   
 - El **orden de los argumentos influye**, es decir, al primer argumento se le asigna  el  primer  parámetro,  al  segundo  argumento  se  le  asigna  el segundo parámetro y así sucesivamente. Aunque, como veremos en el siguiente podemos pasar argumentos con nombre, indicando el nombre del parámetro como veremos en un apartado posterior. Esto se puede cambiar, como veremos más adelante, con los parámetros por nombre.
 - El **tipo** del argumento debe coincidir con el tipo de parámetro al que esté asociado. 
+  
+<br>
 
 ## Parámetros por valor. Parámetros de entrada.
 
@@ -226,11 +271,11 @@ private void btnValor_Click(object sender, EventArgs e)
 ```
 Como vemos en este ejemplo `num` en el botón no ha cambiado su valor a pesar de que en el subprograma sí se cambia. 
 
+<br>
+
 ## Parámetros por Referencia. Salida o Entrada/Salida
 
-Para definir un parámetro por referencia se pueden utilizar la palabra reservada 
-
-`ref` o `out`.  
+Para definir un parámetro por referencia se pueden utilizar la palabra reservada `ref` o `out`.  
 
 Esto  nos  permitirá  tener  parámetros  de  entrada/salida  (`ref`)  y  parámetros  de salida (`out`). 
 
@@ -316,6 +361,8 @@ private void btnReferencia_Click(object sender, EventArgs e)
 
 ```
 
+<hr>
+
 ## ¿Cuándo devolver valores por return o por parámetros por referencia?
 
 En muchas ocasiones puede resultar confuso, a la hora de utilizar un subprograma, decidir si devolver valores mediante return o mediante parámetros por referencia. 
@@ -338,6 +385,10 @@ A continuación, os planteo varios posibles ejemplos.
    En este caso lo mejor sería hacer una función void con 4 parámetros, dos de entrada: el primer número y el segundo número, y otros dos parámetros de salida (`out`): el resultado de la división y el resto. 
 
 4. Si  quisiéramos  hacer  un  subprograma  que  intercambie  el  valor  de  dos números,  lo  mejor  sería  hacer  una  función  void  con  dos  parámetros  de entrada/salida (`ref`). 
+
+<hr>
+
+<br>
 
 # <a name="_apartado4"></a>4. Ejemplo de creación de función
 
@@ -457,6 +508,42 @@ private void btnCalcular_Click(object sender, EventArgs e)
 
 Utilizando la misma función que habíamos definido ya correctamente.
 
+**Vamos a ver el mismo ejemplo en Consola**. Únicamente ponemos el código:
+
+```csharp
+static int potencia(int bbase, int exponente)
+{
+    int res;
+    res = 1;
+
+    for (int i = 1; i <= exponente; i++)
+    {
+        res *= bbase;
+    }
+
+    return res;
+}
+
+static void Main(string[] args)
+{
+    int vBase, vExp, result;
+
+    Console.Write("Introduzca la base: ");
+    vBase = int.Parse(Console.ReadLine());
+    Console.Write("Introduzca el exponente: ");
+    vExp = int.Parse(Console.ReadLine());
+
+    // Llamamos a la función pasando los parámetros
+    // y recogiendo el valor que devuelve.
+    result = potencia(vBase, vExp);
+
+    Console.WriteLine($"{vBase} elevado a {vExp} es {result}.");
+}
+```
+
+<br>
+<br>
+
 # <a name="_apartado5"></a>5. Argumentos por nombre y opcionales
 
 Como hemos estudiado en apartados anteriores, a la hora de llamar a una función el orden de los argumentos es fundamental a la hora de asignarlos a los parámetros de la función.
@@ -503,8 +590,6 @@ private void btnCalcular_Click(object sender, EventArgs e)
 }
 ```
 
-**ESTO QUE VOY A HACER AQUÍ AHORA ESTARÍA BIEN HACERLO EN CONSOLA. EL PROBLEMA ES SI UTILIZAMOS EL NUEVO ESTILO DE CONSOLA O EL ANTIGUO...**
-
 Existe la posibilidad de **tener parámetros opcionales** en una función. Para hacer un parámetro opcional (que deben ir detrás de los parámetros obligatorios), debemos darle un valor en la definición de la función.
 En el caso que en la llamada no pongamos algún argumento opcional, tomará el valor que hayamos puesto en la definición.
 
@@ -512,61 +597,70 @@ Vamos a realizar una función a la cual le pasemos el nombre de una persona, su 
 Los parámetros edad y ciudad de nacimiento serán opcionales:
 
 ```csharp
-// Tenemos parámetro obligatorio (nombre) y dos parámetros opcionales
-string datosPersonales(string nombre, int edad = 50, 
-                       string ciudadNacimiento = "Alicante")
+static string datosPersonales(string nombre, int edad = 50,
+                        string ciudadNacimiento = "Alicante")
 {
-   string estatus = "Bebé";
-   string texto;
+    string estatus = "Bebé";
+    string texto;
 
-   if (edad >= 1 && edad < 12)
-         estatus = "Niño/a";
-   else
-   if (edad >= 12 && edad < 18)
-         estatus = "Adolescente";
-   else
-   if (edad >= 18 && edad < 65)
-         estatus = "Adulto/a";
-   else
-   if (edad >= 65)
-         estatus = "Jubilado/a";
+    if (edad >= 1 && edad < 12)
+    {
+        estatus = "Niño/a";
+    }
+    else if (edad >= 12 && edad < 18)
+    {
+        estatus = "Adolescente";
+    }
+    else if (edad >= 18 && edad < 65)
+    {
+        estatus = "Adulto/a";
+    }
+    else if (edad >= 65)
+    {
+        estatus = "Jubilado/a";
+    }
 
-   texto = $"Nombre: {nombre}, Edad: {edad} ({estatus}), Ciudad: {ciudadNacimiento} ";
+    texto = $"Nombre: {nombre}, Edad: {edad} ({estatus}), Ciudad: {ciudadNacimiento} ";
 
-   return texto;
+    return texto;
 }
 
-private void btnDatos_Click(object sender, EventArgs e)
+static void Main(string[] args)
 {
-   // Aquí tenemos varios ejemplos 
-   // de llamada a la función.
-   MessageBox.Show(datosPersonales("David", 52, "Granada"));
-   MessageBox.Show(datosPersonales("Juan"));
-   MessageBox.Show(datosPersonales("Ana", 18));
-   MessageBox.Show(datosPersonales("María", 15, "Elche"));
+    // Aquí tenemos varios ejemplos 
+    // de llamada a la función.
+    Console.WriteLine(datosPersonales("David", 52, "Granada"));
+    Console.WriteLine(datosPersonales("Juan"));
+    Console.WriteLine(datosPersonales("Ana", 18));
+    Console.WriteLine(datosPersonales("María", 15, "Elche"));
 
-   // Además podemos utilizar parámetros por nombre
-   MessageBox.Show(datosPersonales(nombre: "Miguel", edad: 79, ciudadNacimiento: "Barcelona"));
-   MessageBox.Show(datosPersonales(nombre: "Pablo", ciudadNacimiento: "Alicante"));
-   // En cuyo caso podemos cambiar la posición
-   MessageBox.Show(datosPersonales(ciudadNacimiento: "Valencia", nombre: "Paula", edad: 55));
+    // Además podemos utilizar parámetros por nombre
+    Console.WriteLine(datosPersonales(nombre: "Miguel", edad: 79, ciudadNacimiento: "Barcelona"));
+    Console.WriteLine(datosPersonales(nombre: "Pablo", ciudadNacimiento: "Alicante"));
+    // En cuyo caso podemos cambiar la posición
+    Console.WriteLine(datosPersonales(ciudadNacimiento: "Valencia", nombre: "Paula", edad: 55));
 
-   // E incluso podemos mezclar parámetros por posición y por nombre, siempre 
-   // y cuando los posicionales los escribamos primero
-   MessageBox.Show(datosPersonales("Luisa", ciudadNacimiento: "Elche"));
+    // E incluso podemos mezclar parámetros por posición y por nombre, siempre 
+    // y cuando los posicionales los escribamos primero
+    Console.WriteLine(datosPersonales("Luisa", ciudadNacimiento: "Elche"));
 
-   // Y por supuesto estos argumentos podrían ser variables leídas
-   string nombre = Interaction.InputBox("Introduzca el nombre");
-   int edad = int.Parse(Interaction.InputBox("Introduzca la edad"));
+    // Y por supuesto estos argumentos podrían ser variables leídas
+    Console.Write("Introduzca el nombre: ");
+    string nombre = Console.ReadLine();
+    Console.Write("Introduzca la edad: ");
+    int edad = int.Parse(Console.ReadLine());
 
-   MessageBox.Show(datosPersonales(nombre: nombre, edad: edad));
+    Console.WriteLine(datosPersonales(nombre: nombre, edad: edad));
 }
-
 ```
+
+<br>
+<br>
 
 # <a name="_apartado6"></a>6.	Funciones delegadas y funciones lambda
 
-En c# existe la posibilidad de hacer que una función tenga como parámetro otra función, de manera que luego se pueda utilizar esa función pasada dentro.
+En C# existe la posibilidad de hacer que **una función tenga como parámetro otra función**, de manera que luego se pueda utilizar esa función pasada dentro.
+
 Esto se puede hacer mediante **delegados**
 
 ## Delegados
@@ -579,11 +673,11 @@ Para declarar un delegado, usamos la palabra clave **delegate**, seguida de la f
 public delegate int Operacion(int a, int b);
 ```
 
-Luego podremos poner en una función `Operacion` como parámetro.
+Luego, podremos poner en una función `Operacion` como parámetro.
 
 Vamos a intentar enteder este concepto con un ejemplo en el que trabajamos con funciones que calculan operaciones básicas (suma, resta...):
 
-Podríamos definir en primer lugar estas operacionen como funciones:
+Podríamos definir en primer lugar estas operaciones como funciones:
 
 ```csharp
 int suma(int x, int y)
@@ -602,7 +696,7 @@ int producto(int x, int y)
 }
 ```
 
-Y luego utilizarlas llamándolas cuando nos interese:
+Y luego utilizarlas llamándolas cuando nos interese, tal y como hemos hecho hasta ahora:
 
 ```csharp
 private void btnCalcular_Click(object sender, EventArgs e)
@@ -680,7 +774,7 @@ Al indicar `Func<int, int, int> funcion` estamos diciendo que `ejecutarOperacion
 
 ## Funciones lambda
 
-Las **funciones lambda** en C# son una forma concisa y expresiva de definir funciones anónimas. Son especialmente útiles para operaciones simples que se utilizan una sola vez.
+Las **funciones lambda** en C# son una forma concisa y expresiva de definir funciones anónimas. Son especialmente útiles para **operaciones simples que se utilizan una sola vez**.
 
 La sintaxis general de una función lambda es:
 
@@ -695,9 +789,9 @@ Si nos damos cuenta, algunas de las funciones que utilizamos en el parámetro de
 ```csharp
 private void btnCalcularLambda(object sender, EventArgs e)
 {
-   MessageBox.Show(ejecutarOperacion(5, 3, (x, y) => x + y));
+   MessageBox.Show(ejecutarOperacionConFunc(5, 3, (x, y) => x + y));
 
-   MessageBox.Show(ejecutarOperacion(5, 3, (x, y) => x * y));
+   MessageBox.Show(ejecutarOperacionConFunc(5, 3, (x, y) => x * y));
 
    // Podemos utilizar variables
    int n1 = int.Parse(Interaction.InputBox("Introduzca el dividendo"));
@@ -705,6 +799,116 @@ private void btnCalcularLambda(object sender, EventArgs e)
 
    string texto = ejecutarOperacionConFunc(n1, n2, (x, y) => x / y);
    MessageBox.Show(texto);
+}
+```
+
+<br>
+Os dejamos a continuación el **ejemplo completo**, esta vez en un proyecto de **Consola**:
+
+```csharp
+// Declaración de las funciones
+static int suma(int x, int y)
+{
+    return x + y;
+}
+
+static int resta(int x, int y)
+{
+    return x - y;
+}
+
+static int producto(int x, int y)
+{
+    return x * y;
+}
+
+static int potencia(int bbase, int exponente)
+{
+    int res;
+    res = 1;
+
+    for (int i = 1; i <= exponente; i++)
+    {
+        res *= bbase;
+    }
+
+    return res;
+}
+
+// Creamos el delegado dando nombre y firma del método
+delegate int Operacion(int a, int b);
+
+// Esta es una función que espera dos valores y 
+// la operación a realizar con esos dos valores.
+// Devuelve un texto, pero podría devolver un valor también
+// Utiliza un delegado para definir parámetros y 
+// lo que devuelve la función que se le pasa
+static string ejecutarOperacion(int a, int b, Operacion operacion)
+{
+    int res;
+
+    res = operacion(a, b);
+
+    return $"El resultado es {res}";
+}
+
+// A esta función se le pasa una función como parámetro
+// mediante Func
+static string ejecutarOperacionConFunc(int a, int b, Func<int, int, int> funcion)
+{
+    int res;
+
+    res = funcion(a, b);
+
+    return $"El resultado es {res}";
+}
+
+
+static void Main(string[] args)
+{
+    int res;
+
+    // Llamando a las funciones
+    res = suma(5, 3);
+    Console.WriteLine($"El resultado es {res}");
+
+    res = resta(5, 3);
+    Console.WriteLine($"El resultado es {res}");
+
+    // Directamente en la cadena interpolada
+    Console.WriteLine($"El resultado es {producto(5, 3)}");
+
+    // Utilizamos la función con el delegado
+    // Se llama con distintas funciones como parámetro
+    Console.WriteLine(ejecutarOperacion(5, 3, suma));
+    Console.WriteLine(ejecutarOperacion(5, 3, resta));
+    Console.WriteLine(ejecutarOperacion(5, 3, potencia));
+
+    // Podemos utilizar variables
+    Console.Write("Introduzca la base: ");
+    int n1 = int.Parse(Console.ReadLine());
+    Console.Write("Introduzca el exponente: ");
+    int n2 = int.Parse(Console.ReadLine());
+
+    string texto = ejecutarOperacion(n1, n2, potencia);
+
+    // Utilizamos la función con Func
+    // Con funciones:
+    Console.WriteLine(ejecutarOperacionConFunc(5, 3, suma));
+    Console.WriteLine(ejecutarOperacionConFunc(5, 3, producto));
+
+    // Con funciones lambda
+    Console.WriteLine(ejecutarOperacionConFunc(5, 3, (x, y) => x + y));
+    Console.WriteLine(ejecutarOperacionConFunc(5, 3, (x, y) => x * y));
+
+    // Podemos utilizar variables
+    Console.Write("Introduzca el dividendo: ");
+    n1 = int.Parse(Console.ReadLine());
+    Console.Write("Introduzca el divisor: ");
+    n2 = int.Parse(Console.ReadLine());
+
+    texto = ejecutarOperacionConFunc(n1, n2, (x, y) => x / y);
+    Console.WriteLine(texto);
 }
 ```
 
