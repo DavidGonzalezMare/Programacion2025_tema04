@@ -79,7 +79,7 @@ tipo NombreFuncion(parametros)
 }
 
 ```
-Siguiendo la guía de estilo de Microsoft, en C# debemos utilizar para los nombres de función `CamelCase`
+Siguiendo la guía de estilo de Microsoft, en C# debemos utilizar para los nombres de función `PascalCase`
 
 ### Ejemplo de función 
 
@@ -563,7 +563,7 @@ Así cuando hacemos:
 
 `res` tomará el valor 243 (3 elevado a 5).
 
-Existe en csharp, al igual que en muchos lenguajes modernos, la posibilidad de llamar a una función **indicando el nombre del parámetro**, en cuyo caso no hace seguir el orden establecido en la llamada. 
+Existe en csharp, al igual que en muchos lenguajes modernos, la posibilidad de llamar a una función **indicando el nombre del parámetro**, en cuyo caso no hace falta seguir el orden establecido en la llamada. 
 Además, esto puede hacer más clara la comprensión de la llamada:
 
 ```csharp
@@ -677,7 +677,7 @@ public delegate int Operacion(int a, int b);
 
 Luego, podremos poner en una función `Operacion` como parámetro.
 
-Vamos a intentar enteder este concepto con un ejemplo en el que trabajamos con funciones que calculan operaciones básicas (suma, resta...):
+Vamos a intentar entender este concepto con un ejemplo en el que trabajamos con funciones que calculan operaciones básicas (suma, resta...):
 
 Podríamos definir en primer lugar estas operaciones como funciones:
 
