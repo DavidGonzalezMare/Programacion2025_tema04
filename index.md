@@ -682,19 +682,32 @@ Vamos a intentar entender este concepto con un ejemplo en el que trabajamos con 
 Podríamos definir en primer lugar estas operaciones como funciones:
 
 ```csharp
-int Suma(int x, int y)
+int Sumar(int x, int y)
 {
    return x + y;
 }
 
-int Resta(int x, int y)
+int Restar(int x, int y)
 {
    return x - y;
 }
 
-int Producto(int x, int y)
+int Multiplicar(int x, int y)
 {
    return x * y;
+}
+
+static int CalcularPotencia(int bbase, int exponente)
+{
+    int res;
+    res = 1;
+
+    for (int i = 1; i <= exponente; i++)
+    {
+        res *= bbase;
+    }
+
+    return res;
 }
 ```
 
@@ -705,13 +718,13 @@ private void btnCalcular_Click(object sender, EventArgs e)
 {
    int res;
 
-   res = Suma(5, 3);
+   res = Sumar(5, 3);
    MessageBox.Show($"El resultado es {res}");
 
-   res = Resta(5, 3);
+   res = Restar(5, 3);
    MessageBox.Show($"El resultado es {res}");
 
-   res = Producto(5, 3);
+   res = Multiplicar(5, 3);
    MessageBox.Show($"El resultado es {res}");
 }
 ```
@@ -744,18 +757,18 @@ Y ahora podemos llamar a `EjecutarOperacion` pasándole los valores y la funció
 ```csharp
 private void btnCalcular_Click(object sender, EventArgs e)
 {
-   MessageBox.Show(EjecutarOperacion(5, 3, suma));
+   MessageBox.Show(EjecutarOperacion(5, 3, Sumar));
 
-   MessageBox.Show(EjecutarOperacion(5, 3, resta));
+   MessageBox.Show(EjecutarOperacion(5, 3, Restar));
 
    // Aquí la llamamos con la función potencia
-   MessageBox.Show(EjecutarOperacion(5, 3, potencia));
+   MessageBox.Show(EjecutarOperacion(5, 3, CalcularPotencia));
 
    // Podemos utilizar variables
    int n1 = int.Parse(Interaction.InputBox("Introduzca un valor"));
    int n2 = int.Parse(Interaction.InputBox("Introduzca otro valor"));
 
-   string texto = EjecutarOperacion(n1, n2, potencia);   
+   string texto = EjecutarOperacion(n1, n2, CalcularPotencia);   
 }
 ```
 
@@ -809,22 +822,22 @@ Os dejamos a continuación el **ejemplo completo**, esta vez en un proyecto de *
 
 ```csharp
 // Declaración de las funciones
-static int Suma(int x, int y)
+static int Sumar(int x, int y)
 {
     return x + y;
 }
 
-static int Resta(int x, int y)
+static int Restar(int x, int y)
 {
     return x - y;
 }
 
-static int Producto(int x, int y)
+static int Multiplicar(int x, int y)
 {
     return x * y;
 }
 
-static int Potencia(int bbase, int exponente)
+static int CalcularPotencia(int bbase, int exponente)
 {
     int res;
     res = 1;
@@ -871,20 +884,20 @@ static void Main(string[] args)
     int res;
 
     // Llamando a las funciones
-    res = Suma(5, 3);
+    res = Sumar(5, 3);
     Console.WriteLine($"El resultado es {res}");
 
-    res = Resta(5, 3);
+    res = Restar(5, 3);
     Console.WriteLine($"El resultado es {res}");
 
     // Directamente en la cadena interpolada
-    Console.WriteLine($"El resultado es {Producto(5, 3)}");
+    Console.WriteLine($"El resultado es {Multiplicar(5, 3)}");
 
     // Utilizamos la función con el delegado
     // Se llama con distintas funciones como parámetro
-    Console.WriteLine(EjecutarOperacion(5, 3, suma));
-    Console.WriteLine(EjecutarOperacion(5, 3, resta));
-    Console.WriteLine(EjecutarOperacion(5, 3, potencia));
+    Console.WriteLine(EjecutarOperacion(5, 3, Sumar));
+    Console.WriteLine(EjecutarOperacion(5, 3, Restar));
+    Console.WriteLine(EjecutarOperacion(5, 3, CalcularPotencia));
 
     // Podemos utilizar variables
     Console.Write("Introduzca la base: ");
@@ -892,12 +905,12 @@ static void Main(string[] args)
     Console.Write("Introduzca el exponente: ");
     int n2 = int.Parse(Console.ReadLine());
 
-    string texto = EjecutarOperacion(n1, n2, potencia);
+    string texto = EjecutarOperacion(n1, n2, CalcularPotencia);
 
     // Utilizamos la función con Func
     // Con funciones:
-    Console.WriteLine(EjecutarOperacionConFunc(5, 3, suma));
-    Console.WriteLine(EjecutarOperacionConFunc(5, 3, producto));
+    Console.WriteLine(EjecutarOperacionConFunc(5, 3, Sumar));
+    Console.WriteLine(EjecutarOperacionConFunc(5, 3, Multiplicar));
 
     // Con funciones lambda
     Console.WriteLine(EjecutarOperacionConFunc(5, 3, (x, y) => x + y));
